@@ -9,7 +9,15 @@ form.addEventListener('submit', event => {
   event.preventDefault();
   let deleyToNumber = Number(delayEl.value);
   const stepToNumber = Number(stepEl.value);
+  let amountToNumber = Number(amountEl.value);
   console.log(deleyToNumber, stepToNumber);
+  if (deleyToNumber < 0 || stepToNumber < 0 || amountToNumber < 0) {
+    Notiflix.Notify.warning('Value must be greater than null');
+    delayEl.value = '';
+    stepEl.value = '';
+    amountEl.value = '';
+    return;
+  }
 
   for (let i = 1; i <= amountEl.value; i += 1) {
     deleyToNumber += stepToNumber;
