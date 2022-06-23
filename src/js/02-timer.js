@@ -16,7 +16,7 @@ const fp = flatpickr(myInput, {
   defaultDate: new Date(),
   minuteIncrement: 1,
   intervalId: null,
-  onClose(selectedDates, timeFofShow) {
+  onClose(selectedDates) {
     if (selectedDates[0] - Date.now() > 0) {
       startBtn.removeAttribute('disabled', true);
       startBtn.addEventListener('click', function showLostTime() {
@@ -24,13 +24,13 @@ const fp = flatpickr(myInput, {
           const currentTime = Date.now();
           const time = selectedDates[0] - currentTime;
           const timeFofShow = convertMs(time);
-
+          const timeNom = Number(time);
           days.textContent = addLeadingZero(timeFofShow.days);
           hours.textContent = addLeadingZero(timeFofShow.hours);
           minutes.textContent = addLeadingZero(timeFofShow.minutes);
           seconds.textContent = addLeadingZero(timeFofShow.seconds);
-          const timeNom = Number(time);
-          if (timeNom < 1000) {
+          startBtn.setAttribute('disabled', true);
+          if (timeNom < 999) {
             stopTimerIfTimeUp();
           }
         }, 1000);
