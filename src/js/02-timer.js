@@ -21,6 +21,7 @@ const fp = flatpickr(myInput, {
       startBtn.removeAttribute('disabled', true);
       startBtn.addEventListener('click', function showLostTime() {
         intervalId = setInterval(() => {
+          startBtn.setAttribute('disabled', true);
           const currentTime = Date.now();
           const time = selectedDates[0] - currentTime;
           const timeFofShow = convertMs(time);
@@ -29,9 +30,9 @@ const fp = flatpickr(myInput, {
           hours.textContent = addLeadingZero(timeFofShow.hours);
           minutes.textContent = addLeadingZero(timeFofShow.minutes);
           seconds.textContent = addLeadingZero(timeFofShow.seconds);
-          startBtn.setAttribute('disabled', true);
-          if (timeNom < 999) {
-            stopTimerIfTimeUp();
+          if (timeNom < 1000) {
+            clearInterval(intervalId);
+            Notify.info('Time is over!');
           }
         }, 1000);
       });
@@ -40,11 +41,6 @@ const fp = flatpickr(myInput, {
     }
   },
 });
-
-function stopTimerIfTimeUp() {
-  clearInterval(this.intervalId);
-  Notify.info('Time is over!');
-}
 
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
