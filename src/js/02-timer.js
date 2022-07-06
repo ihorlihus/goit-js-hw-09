@@ -10,12 +10,12 @@ const myInput = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
 
 startBtn.setAttribute('disabled', true);
+let intervalId = null;
 const fp = flatpickr(myInput, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  intervalId: null,
   onClose(selectedDates) {
     if (selectedDates[0] - Date.now() > 0) {
       startBtn.removeAttribute('disabled', true);
@@ -31,7 +31,7 @@ const fp = flatpickr(myInput, {
           minutes.textContent = addLeadingZero(timeFofShow.minutes);
           seconds.textContent = addLeadingZero(timeFofShow.seconds);
           if (timeNom < 1000) {
-            clearInterval(this.intervalId);
+            clearInterval(intervalId);
             Notify.info('Time is over!');
           }
         }, 1000);
