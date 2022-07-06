@@ -31,7 +31,7 @@ const fp = flatpickr(myInput, {
           minutes.textContent = addLeadingZero(timeFofShow.minutes);
           seconds.textContent = addLeadingZero(timeFofShow.seconds);
           if (timeNom < 1000) {
-            clearInterval(intervalId);
+            clearInterval(this.intervalId);
             Notify.info('Time is over!');
           }
         }, 1000);
